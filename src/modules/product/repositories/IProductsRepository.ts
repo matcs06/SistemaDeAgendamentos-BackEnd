@@ -1,4 +1,4 @@
-import { Product } from '../model/Product';
+import { Product } from '../entities/Product';
 
 interface ICreateProductDTO{
    name:string;
@@ -8,11 +8,11 @@ interface ICreateProductDTO{
 }
 
 interface IProductsRepository{
-   findByName(name:string): Product | undefined;
-   list(): Product[];
+   findByName(name:string): Promise<Product | undefined>;
+   list(): Promise<Product[]>;
    create({
      name, description, duration, price,
-   }: ICreateProductDTO):void
+   }: ICreateProductDTO): Promise<void>
 }
 
 export { IProductsRepository, ICreateProductDTO };

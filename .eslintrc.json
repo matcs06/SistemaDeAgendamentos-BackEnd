@@ -20,7 +20,8 @@
     "rules": {
       "camelcase": "off",
 			"import/no-unresolved": "error",
-
+			 "linebreak-style": ["error", "windows"], 
+			 "eslint-disable-next-line": "true",     
 			"@typescript-eslint/naming-convention": [
 			  "error",
 			  {
