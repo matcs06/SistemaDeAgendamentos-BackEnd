@@ -1,4 +1,6 @@
 import { IProductsRepository } from '../repositories/IProductsRepository';
+import {inject, injectable} from "tsyringe"
+import {AppError} from '../../../shared/errors/AppError';
 
 interface IRequest{
    name:string;
@@ -7,25 +9,31 @@ interface IRequest{
    duration:string;
 }
 
+@injectable()
 class CreateProductService {
-  private productsRepository: IProductsRepository;
 
-  constructor(productsRepository: IProductsRepository) {
-    this.productsRepository = productsRepository;
+  constructor(
+    @inject("ProductsRepository")
+    private productsRepository: IProductsRepository) {
   }
 
   async execute({
     name, description, price, duration,
   }:IRequest):Promise<void> {
-    const productAlreadyExists = await this.productsRepository.findByName(name)
+    try {
+      const productAlreadyExists = await this.productsRepository.findByName(name)
 
-    if(productAlreadyExists){
-      throw new Error("Product already exists")
+      if(productAlreadyExists){
+        throw new AppError("Product already exists")
+      }
+
+      await this.productsRepository.create({
+        name, description, duration, price,
+      });
+    } catch (error) {
+      
     }
-
-    await this.productsRepository.create({
-      name, description, duration, price,
-    });
+    
   }
 }
 

@@ -12,7 +12,9 @@ interface IProductsRepository{
    list(): Promise<Product[]>;
    create({
      name, description, duration, price,
-   }: ICreateProductDTO): Promise<void>
+   }: ICreateProductDTO): Promise<void>;
+   deleteById(id:string): Promise<void>;
+   findById(id:string): Promise<Product | undefined>;
 }
 
 export { IProductsRepository, ICreateProductDTO };

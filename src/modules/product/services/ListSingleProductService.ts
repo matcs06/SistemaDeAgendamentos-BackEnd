@@ -10,16 +10,22 @@ interface IRequest{
 }
 
 @injectable()
-class ListProductsService {
+class ListSingleProductService {
 
   constructor(
     @inject("ProductsRepository")
     private productsRepository: IProductsRepository) {
   }
 
-  async execute(): Promise<Product[]> {
-    return await this.productsRepository.list();
+  async execute(id:string): Promise<Product> {
+    const foundProduct =  await this.productsRepository.findById(id);
+
+    if(!foundProduct){
+       throw new Error("Produc does not exists")
+    }  
+
+    return foundProduct
   }
 }
 
-export { ListProductsService };
+export { ListSingleProductService };

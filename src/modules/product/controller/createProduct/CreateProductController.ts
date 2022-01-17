@@ -1,16 +1,18 @@
 import { Request, Response } from 'express';
+import {container} from "tsyringe"
 
 import { CreateProductService } from '../../services/CreateProductService';
 
 class CreateProductController {
-  constructor(private createProductService: CreateProductService) {}
-
+ 
   async handle(request: Request, response: Response):Promise<Response> {
     const {
       name, description, price, duration,
     } = request.body;
 
-    await this.createProductService.execute({
+    const createProductService = container.resolve(CreateProductService)
+
+    await createProductService.execute({
       name, price, description, duration,
     });
 
