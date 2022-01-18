@@ -4,10 +4,10 @@ import { ICreateProductDTO, IProductsRepository } from '../IProductsRepository';
 import { getRepository, Repository } from "typeorm"
 
 class ProductsRepository implements IProductsRepository {
-  private respository: Repository<Product>;
+  private repository: Repository<Product>;
 
   constructor() {
-    this.respository = getRepository(Product)
+    this.repository = getRepository(Product)
   }
 
  /*  public static getInstance():ProductsRepository {
@@ -21,36 +21,36 @@ class ProductsRepository implements IProductsRepository {
   async create({
     name, description, price, duration,
   }: ICreateProductDTO): Promise<void> {
-    const product = this.respository.create({
+    const product = this.repository.create({
       name,
       description,
       price,
       duration
     })
 
-    await this.respository.save(product)
+    await this.repository.save(product)
   }
 
   async findByName(name:string): Promise<Product | undefined> {
-    const product = await this.respository.findOne({ name });
+    const product = await this.repository.findOne({ name });
 
     return product;
   }
 
   async list(): Promise<Product[]> {
-    const products = await this.respository.find()
+    const products = await this.repository.find()
     return products;
   }
 
   async deleteById(id: string): Promise<void>{
 
-    await this.respository.delete(id)
+    await this.repository.delete(id)
 
   }
 
    async findById(id: string):  Promise<Product | undefined>{
 
-    const product = await this.respository.findOne( id );
+    const product = await this.repository.findOne( id );
     return product;
 
   }
