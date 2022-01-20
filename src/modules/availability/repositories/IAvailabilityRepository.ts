@@ -1,7 +1,7 @@
 import { Availability } from '../entities/Availability';
 
 interface ICreateAvailabilityDTO{
-   date:Date;
+   date:string;
    morning_start_time:string;
    morning_end_time: string;
    afternoon_start_time:string;
@@ -13,7 +13,7 @@ interface IAvailabilityRepository{
    create(data: ICreateAvailabilityDTO): Promise<void>;
    deleteById(id:string): Promise<void>;
    findById(id:string): Promise<Availability | undefined>;
-   findByDateAndTime(data: ICreateAvailabilityDTO):Promise<Availability>
+   findByDate(date:string):Promise<Availability | undefined>
 }
 
 export { IAvailabilityRepository, ICreateAvailabilityDTO };

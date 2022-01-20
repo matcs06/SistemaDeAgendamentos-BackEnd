@@ -21,8 +21,6 @@ class CreateAvailabilityController {
       afternoon_end_time
     }
 
-      console.log(data)
-
     await createAvailabilityService.execute(data);
 
     return response.status(201).send();

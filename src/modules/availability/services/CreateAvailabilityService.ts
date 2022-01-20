@@ -3,7 +3,7 @@ import {inject, injectable} from "tsyringe"
 import {AppError} from '../../../shared/errors/AppError';
 
 interface IRequest{
-   date:Date;
+   date:string;
    morning_start_time:string;
    morning_end_time: string;
    afternoon_start_time:string;
@@ -19,23 +19,16 @@ class CreateAvailabilityService {
   }
 
   async execute(data:IRequest):Promise<void> {
-    try {
-      const AvailabilityAlreadyExists = await this.AvailabilityRepository.findByDateAndTime(data)
+   
+    const date = data.date
+    const AvailabilityAlreadyExists = await this.AvailabilityRepository.findByDate(date)
 
-      console.log("service")
-      console.log(data)
-
-      if(AvailabilityAlreadyExists){
-        console.log("av já existe")
-        throw new AppError("Availability already exists")
-      }
-
-      await this.AvailabilityRepository.create(data)
-    } catch (error) {
-      throw new AppError("Erro ao criar availability")
-      console.log(error)
+    if(AvailabilityAlreadyExists){
+      throw new AppError("Availability already exists for this date")
     }
-    
+
+    await this.AvailabilityRepository.create(data)
+  
   }
 }
 

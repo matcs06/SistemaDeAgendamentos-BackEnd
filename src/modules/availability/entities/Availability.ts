@@ -8,7 +8,7 @@ class Availability {
   id?: string;
   
   @Column()
-  date: Date;
+  date: string;
   
   @Column()
   morning_start_time: string;

@@ -30,17 +30,12 @@ class AvailabilityRepository implements IAvailabilityRepository{
 
    async create(data: ICreateAvailabilityDTO): Promise<void> {
       const availability = this.repository.create(data)
-      
       await this.repository.save(availability)
 
    }
 
-   async findByDateAndTime(data: ICreateAvailabilityDTO): Promise<Availability> {
-      const availability = await this.repository.findOne(data)
-
-      if(!availability){
-         throw new AppError("Availability does not exists!")
-      }
+   async findByDate(date:string): Promise<Availability | undefined> {
+      const availability = await this.repository.findOne({date})
 
       return availability;
 

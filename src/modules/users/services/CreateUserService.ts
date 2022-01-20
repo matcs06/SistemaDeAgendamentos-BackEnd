@@ -22,7 +22,7 @@ class CreateUserService {
     const userAlreadyExists = await this.UserRepository.findByName(username)
 
     if(userAlreadyExists){
-      throw new Error("Product already exists")
+      throw new Error("User already exists")
     }
   
     const passwordHash = await hash(password, 8)
