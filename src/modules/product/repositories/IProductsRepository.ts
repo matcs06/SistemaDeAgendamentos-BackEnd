@@ -15,6 +15,7 @@ interface IProductsRepository{
    }: ICreateProductDTO): Promise<void>;
    deleteById(id:string): Promise<void>;
    findById(id:string): Promise<Product | undefined>;
+   save(product:Product): Promise<void>;
 }
 
 export { IProductsRepository, ICreateProductDTO };

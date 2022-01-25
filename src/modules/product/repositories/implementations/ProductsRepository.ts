@@ -55,6 +55,10 @@ class ProductsRepository implements IProductsRepository {
 
   }
 
+  public async save(product: Product): Promise<void> {
+    await this.repository.save(product);
+  }
+
 }
 
 export { ProductsRepository };
