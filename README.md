@@ -55,3 +55,6 @@ Começa as 2 hrs tem a duração de uma hora(info do serviço)
 
 2 Ver se o start time + (duração) for maior e igual a outro horário(start time + (duração)) &&
 menor igual ao end time - duração.
+
+
+Id do availability e duração são passados para os listAvailabilitydetails

@@ -2,6 +2,7 @@ import { ISchedulesRepository } from '../repositories/ISchedulesRepository';
 import {inject, injectable} from "tsyringe"
 import {AppError} from '../../../shared/errors/AppError';
 import { IAvailabilityRepository } from '../../availability/repositories/IAvailabilityRepository';
+import { addTimes } from '../../../utils/AddTimes';
 
 interface IRequest{
    customer_name:string;
@@ -10,25 +11,6 @@ interface IRequest{
    start_time:string;
    service_duration:string;
    phone_number: string;
-}
-
-function timeToMins(time:any) {
-  var b = time.split(':');
-  return b[0]*60 + +b[1];
-}
-
-// Convert minutes to a time in format hh:mm
-// Returned value is in range 00  to 24 hrs
-function timeFromMins(mins:any) {
-  function z(n:any){return (n<10? '0':'') + n;}
-  var h = (mins/60 |0) % 24; 
-  var m = mins % 60;
-  return z(h) + ':' + z(m);
-}
-
-// Add two times in hh:mm format
-function addTimes(t0:any, t1:any) {
-   return timeFromMins(timeToMins(t0) + timeToMins(t1));
 }
 
 
@@ -84,12 +66,16 @@ class CreateSchedulesService {
       schedules.map((schedule)=> {
 
          if(schedule.date === data.date){
-            console.log("entrou")
             //Checando se já tem um agendamento no período escolhido de um novo 
             //agendamento
             const scheduledEndTime = addTimes(schedule.start_time, schedule.service_duration)
+            const newTimeEnd = addTimes(data.start_time, data.service_duration)
 
             if(data.start_time >= schedule.start_time && data.start_time < scheduledEndTime + ":00"){
+               throw new AppError("There is already a schedule in this time range")
+            }
+
+            if(newTimeEnd + ":00" > schedule.start_time && newTimeEnd + ":00" < scheduledEndTime + ":00"){
                throw new AppError("There is already a schedule in this time range")
             }
 
