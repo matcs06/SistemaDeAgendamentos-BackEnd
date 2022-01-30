@@ -36,8 +36,8 @@ class UpdateProductService {
 
       await this.productsRepository.save(productAlreadyExists)
 
-      console.log(productAlreadyExists);
     } catch (error) {
+      throw new AppError("Error updating service")
       
     }
     
