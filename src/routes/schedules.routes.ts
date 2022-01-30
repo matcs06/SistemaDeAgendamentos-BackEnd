@@ -3,20 +3,19 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 import { CreateScheduleController } from '../modules/schedules/controller/createSchedule/CreateScheduleController';
 
-/* import { ListAvailabilityController } from '../modules/schedule/controller/listAvailability/ListAvailabilityController';
+import { ListScheduleController } from '../modules/schedules/controller/listSchedule/ListScheduleController';
 
-import { DeleteAvailabilityController } from '../modules/schedule/controller/deleteAvailability/DeleteAvailabilityController'; */
-
+import { DeleteScheduleController } from '../modules/schedules/controller/deleteSchedule/DeleteScheduleController';
 const schedulesRoutes = Router();
 
 const createScheduleController = new CreateScheduleController()
-/* const listAvailabilityController = new ListAvailabilityController()
-const deleteAvailabilityController  = new DeleteAvailabilityController() */
+const listScheduleController = new ListScheduleController()
+const deleteScheduleController  = new DeleteScheduleController() 
 
 schedulesRoutes.use(ensureAuthenticated)
 
 schedulesRoutes.post('/', createScheduleController.handle);
-/* schedulesRoutes.get("/", listAvailabilityController.handle)
-schedulesRoutes.delete("/:id", deleteAvailabilityController.handle) */
+schedulesRoutes.get("/", listScheduleController.handle)
+schedulesRoutes.delete("/:id", deleteScheduleController.handle) 
 
 export { schedulesRoutes };

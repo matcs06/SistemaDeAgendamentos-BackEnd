@@ -1,6 +1,7 @@
 import { IAvailabilityRepository } from '../repositories/IAvailabilityRepository';
 import {inject, injectable} from "tsyringe"
 import {AppError} from '../../../shared/errors/AppError';
+import {isBefore} from "date-fns"
 
 interface IRequest{
    date:string;
@@ -26,6 +27,8 @@ class CreateAvailabilityService {
     if(AvailabilityAlreadyExists){
       throw new AppError("Availability already exists for this date")
     }
+
+
 
     await this.AvailabilityRepository.create(data)
   
