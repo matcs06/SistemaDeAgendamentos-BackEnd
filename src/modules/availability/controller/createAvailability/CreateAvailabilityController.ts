@@ -18,7 +18,7 @@ class CreateAvailabilityController {
       morning_start_time,
       morning_end_time,
       afternoon_start_time,
-      afternoon_end_time
+      afternoon_end_time,
     }
 
     await createAvailabilityService.execute(data);

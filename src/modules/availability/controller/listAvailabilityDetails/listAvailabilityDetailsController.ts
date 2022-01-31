@@ -13,11 +13,11 @@ class ListAvailabilityDetailsController {
     const {id} = request.body
 
 
-    const listAvailabilityervice = container.resolve(ListAvailabilityDetailsService)
+    const listAvailabilityService = container.resolve(ListAvailabilityDetailsService)
 
-    const all = await listAvailabilityervice.execute(id, service_duration);
+    const availabilityDetail = await listAvailabilityService.execute(id, service_duration);
 
-    return response.json(all);
+    return response.json(availabilityDetail);
   }
 }
 

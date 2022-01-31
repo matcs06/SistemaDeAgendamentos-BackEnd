@@ -24,6 +24,9 @@ class Schedules{
    @Column()
    service_duration: string;
 
+   @Column()
+   isMorning: boolean;
+
    @CreateDateColumn()
    created_at: Date;
 

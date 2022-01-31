@@ -5,6 +5,8 @@ import { CreateAvailabilityController } from '../modules/availability/controller
 
 import { ListAvailabilityController } from '../modules/availability/controller/listAvailability/ListAvailabilityController';
 
+import { ListAvailabilityDetailsController } from '../modules/availability/controller/listAvailabilityDetails/listAvailabilityDetailsController';
+
 import { DeleteAvailabilityController } from '../modules/availability/controller/deleteAvailability/DeleteAvailabilityController';
 
 const availabilitysRoutes = Router();
@@ -12,11 +14,13 @@ const availabilitysRoutes = Router();
 const createAvailabilityController = new CreateAvailabilityController()
 const listAvailabilityController = new ListAvailabilityController()
 const deleteAvailabilityController  = new DeleteAvailabilityController()
+const listAvailabilityDetailsController = new ListAvailabilityDetailsController()
 
 availabilitysRoutes.use(ensureAuthenticated)
 
 availabilitysRoutes.post('/', createAvailabilityController.handle);
 availabilitysRoutes.get("/", listAvailabilityController.handle)
+availabilitysRoutes.get("/details/:id", listAvailabilityDetailsController.handle)
 availabilitysRoutes.delete("/:id", deleteAvailabilityController.handle)
 
 export { availabilitysRoutes };

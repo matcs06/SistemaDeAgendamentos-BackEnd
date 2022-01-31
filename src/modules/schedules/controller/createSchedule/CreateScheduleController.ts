@@ -12,6 +12,7 @@ class CreateScheduleController {
       start_time, 
       service_duration,
       phone_number,
+      isMorning 
     } = request.body;
 
     const createScheduleService = container.resolve(CreateSchedulesService)
@@ -22,6 +23,7 @@ class CreateScheduleController {
       start_time, 
       service_duration,
       phone_number,
+      isMorning
     }
 
     await createScheduleService.execute(data);
