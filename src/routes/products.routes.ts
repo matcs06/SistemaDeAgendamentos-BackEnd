@@ -20,12 +20,13 @@ const deleteProductController  = new DeleteProductController()
 const listSingleProductController  = new ListSingleProductController()
 const updateProductController = new UpdateProductController()
 
-productsRoutes.use(ensureAuthenticated)
-productsRoutes.post('/', createProductController.handle);
-
 productsRoutes.get('/', listProductController.handle);
 
 productsRoutes.get("/:id", listSingleProductController.handle)
+
+productsRoutes.use(ensureAuthenticated)
+
+productsRoutes.post('/', createProductController.handle);
 
 productsRoutes.delete("/:id", deleteProductController.handle)
 

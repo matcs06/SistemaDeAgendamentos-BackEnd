@@ -15,12 +15,14 @@ const createAvailabilityController = new CreateAvailabilityController()
 const listAvailabilityController = new ListAvailabilityController()
 const deleteAvailabilityController  = new DeleteAvailabilityController()
 const listAvailabilityDetailsController = new ListAvailabilityDetailsController()
+availabilitysRoutes.get("/", listAvailabilityController.handle)
+availabilitysRoutes.get("/details/:id", listAvailabilityDetailsController.handle)
+
 
 availabilitysRoutes.use(ensureAuthenticated)
 
 availabilitysRoutes.post('/', createAvailabilityController.handle);
-availabilitysRoutes.get("/", listAvailabilityController.handle)
-availabilitysRoutes.get("/details/:id", listAvailabilityDetailsController.handle)
+
 availabilitysRoutes.delete("/:id", deleteAvailabilityController.handle)
 
 export { availabilitysRoutes };

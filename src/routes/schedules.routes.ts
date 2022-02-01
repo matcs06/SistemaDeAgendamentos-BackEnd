@@ -12,10 +12,11 @@ const createScheduleController = new CreateScheduleController()
 const listScheduleController = new ListScheduleController()
 const deleteScheduleController  = new DeleteScheduleController() 
 
-schedulesRoutes.use(ensureAuthenticated)
-
 schedulesRoutes.post('/', createScheduleController.handle);
 schedulesRoutes.get("/", listScheduleController.handle)
+
+schedulesRoutes.use(ensureAuthenticated)
+
 schedulesRoutes.delete("/:id", deleteScheduleController.handle) 
 
 export { schedulesRoutes };

@@ -10,7 +10,7 @@ class ListAvailabilityDetailsController {
   async handle(request: Request, response: Response): Promise<Response> {
     
     const { service_duration } = request.body
-    const {id} = request.body
+    const {id} = request.params
 
 
     const listAvailabilityService = container.resolve(ListAvailabilityDetailsService)
