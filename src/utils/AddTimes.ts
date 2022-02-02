@@ -17,4 +17,33 @@ function addTimes(t0:any, t1:any) {
    return timeFromMins(timeToMins(t0) + timeToMins(t1));
 }
 
-export {addTimes}
+
+function uniqueArray(arr: Array<string>){
+  
+  const uniqueArray = arr.filter(function(item, pos) {
+    
+    return arr.indexOf(item) == pos ;
+  })
+
+  var unavailableArray:Array<string> = []
+
+  uniqueArray.map((value)=>{
+    if(value.split(" ").length > 1){
+      const newValue = value.split(" ")[0]
+      unavailableArray.push(newValue)
+    }
+  })
+
+  unavailableArray.map((value, index)=>{
+    if(uniqueArray.indexOf(value) != -1){
+      const uniqueArrayIndex = uniqueArray.indexOf(value)
+      uniqueArray.splice(uniqueArrayIndex, 1)
+    }
+  })
+
+  return uniqueArray
+
+} 
+  
+
+export {addTimes, uniqueArray}

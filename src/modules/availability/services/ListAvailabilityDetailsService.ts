@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../shared/errors/AppError';
 import { Availability } from '../entities/Availability';
 import { IAvailabilityRepository } from '../repositories/IAvailabilityRepository';
-import {addTimes} from "../../../utils/AddTimes"
+import {addTimes, uniqueArray} from "../../../utils/AddTimes"
 import { ISchedulesRepository } from '../../schedules/repositories/ISchedulesRepository';
 
 
@@ -97,12 +97,14 @@ class ListAvailabilityDetailsService {
             const scheduleEndTime = addTimes(schedule.start_time, schedule.service_duration)
 
             if(moring_time <= schedule.start_time && listedEndTime + "00" > schedule.start_time || scheduleEndTime > moring_time && listedEndTime + "00" > scheduleEndTime + "00"  ){
+
               newMorning_times.push(moring_time + " indisponível")
+             
               overlaps = true;
             }
 
             if(!overlaps){
-              newMorning_times.push(moring_time)
+                newMorning_times.push(moring_time)
             }
             
 
@@ -118,12 +120,13 @@ class ListAvailabilityDetailsService {
             const scheduleEndTime = addTimes(schedule.start_time, schedule.service_duration)
 
             if(afternoon_time <= schedule.start_time && listedEndTime + "00" > schedule.start_time || scheduleEndTime > afternoon_time && listedEndTime + "00" > scheduleEndTime + "00"  ){
+
               newAfternoon_times.push(afternoon_time + " indisponível")
               overlaps = true;
             }
 
             if(!overlaps){
-              newAfternoon_times.push(afternoon_time)
+              newAfternoon_times.push(afternoon_time)    
             }
             
 
@@ -137,6 +140,9 @@ class ListAvailabilityDetailsService {
 
     var availabilityDetail:AvailabilityDetail;
 
+    const uniqueNewMorningTimes = uniqueArray(newMorning_times)
+    const uniqueNewAfternoonTimes = uniqueArray(newAfternoon_times)
+
     if(newMorning_times.length === 0 && newAfternoon_times.length === 0 ){
       return availabilityDetail = {
         availability,
@@ -149,22 +155,22 @@ class ListAvailabilityDetailsService {
         return availabilityDetail = {
           availability,
           morning_available_times: morning_times,
-          afternoon_available_times: newAfternoon_times
+          afternoon_available_times: uniqueNewAfternoonTimes
         }
       }
 
       if(newMorning_times.length != 0 && newAfternoon_times.length != 0 ){
         return availabilityDetail = {
           availability,
-          morning_available_times: newMorning_times,
-          afternoon_available_times: newAfternoon_times
+          morning_available_times: uniqueNewMorningTimes,
+          afternoon_available_times: uniqueNewAfternoonTimes
         }
       }
 
       if(newMorning_times.length != 0 && newAfternoon_times.length === 0 ){
         return availabilityDetail = {
           availability,
-          morning_available_times: newMorning_times,
+          morning_available_times: uniqueNewMorningTimes,
           afternoon_available_times: afternoon_times
         }
       }
