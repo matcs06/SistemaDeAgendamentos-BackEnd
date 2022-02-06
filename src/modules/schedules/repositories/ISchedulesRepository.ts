@@ -7,6 +7,7 @@ interface ICreateSchedulesDTO{
    start_time:string;
    service_duration:string;
    phone_number: string;
+   value?:string;
    isMorning: true | false;
 }
 
