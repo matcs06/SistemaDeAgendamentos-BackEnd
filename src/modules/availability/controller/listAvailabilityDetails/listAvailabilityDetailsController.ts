@@ -9,13 +9,13 @@ class ListAvailabilityDetailsController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     
-    const { service_duration } = request.body
+    const { service_duration } = request.query
     const {id} = request.params
 
 
     const listAvailabilityService = container.resolve(ListAvailabilityDetailsService)
 
-    const availabilityDetail = await listAvailabilityService.execute(id, service_duration);
+    const availabilityDetail = await listAvailabilityService.execute(id, String(service_duration));
 
     return response.json(availabilityDetail);
   }
