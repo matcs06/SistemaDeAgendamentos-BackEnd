@@ -6,9 +6,9 @@
    "username":"docker",
    "password":"agendamento",
    "database":"agendamento",
-   "migrations": ["./src/database/migrations/*.ts"],
-   "entities": ["./src/modules/**/entities/*.ts"],
+   "migrations": ["./dist/database/migrations/*.js"],
+   "entities": ["./dist/modules/**/entities/*.js"],
    "cli": {
-    "migrationsDir": "./src/database/migrations"
+    "migrationsDir": "./dist/database/migrations"
    }
-}
+} 

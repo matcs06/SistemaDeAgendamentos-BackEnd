@@ -12,7 +12,6 @@ class ListAvailabilityDetailsController {
     const { service_duration } = request.query
     const {id} = request.params
 
-
     const listAvailabilityService = container.resolve(ListAvailabilityDetailsService)
 
     const availabilityDetail = await listAvailabilityService.execute(id, String(service_duration));
