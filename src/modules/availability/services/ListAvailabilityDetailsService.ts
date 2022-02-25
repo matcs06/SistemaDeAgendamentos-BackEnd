@@ -93,11 +93,17 @@ class ListAvailabilityDetailsService {
 
            morning_times.map((moring_time, index)=>{
             var overlaps = false; 
-            const listedEndTime = addTimes(moring_time, service_duration)
-            const scheduleEndTime = addTimes(schedule.start_time, schedule.service_duration)
+            const listedEndTime = addTimes(moring_time, service_duration) + ":00"
+            const scheduleEndTime = addTimes(schedule.start_time, schedule.service_duration) + ":00"
+                       
 
-            if(moring_time <= schedule.start_time && listedEndTime + "00" > schedule.start_time || scheduleEndTime > moring_time && listedEndTime + "00" > scheduleEndTime + "00"  ){
-
+            if(schedule.start_time >= moring_time && schedule.start_time < listedEndTime   
+            || 
+            scheduleEndTime > moring_time && listedEndTime > scheduleEndTime 
+            || 
+            schedule.start_time <= moring_time && scheduleEndTime >= listedEndTime
+            ){
+              
               newMorning_times.push(moring_time + " indisponível")
              
               overlaps = true;
@@ -116,10 +122,14 @@ class ListAvailabilityDetailsService {
 
            afternoon_times.map((afternoon_time, index)=>{
             var overlaps = false; 
-            const listedEndTime = addTimes(afternoon_time, service_duration)
-            const scheduleEndTime = addTimes(schedule.start_time, schedule.service_duration)
+            const listedEndTime = addTimes(afternoon_time, service_duration) + ":00"
+            const scheduleEndTime = addTimes(schedule.start_time, schedule.service_duration) + ":00"
 
-            if(afternoon_time <= schedule.start_time && listedEndTime + "00" > schedule.start_time || scheduleEndTime > afternoon_time && listedEndTime + "00" > scheduleEndTime + "00"  ){
+            if(schedule.start_time >= afternoon_time && schedule.start_time < listedEndTime  
+            || 
+            scheduleEndTime > afternoon_time && listedEndTime > scheduleEndTime
+            || 
+            schedule.start_time <= afternoon_time && scheduleEndTime >= listedEndTime){
 
               newAfternoon_times.push(afternoon_time + " indisponível")
               overlaps = true;
