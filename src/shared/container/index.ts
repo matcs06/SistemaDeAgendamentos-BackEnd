@@ -12,6 +12,9 @@ import {SchedulesRepository} from "../../modules/schedules/repositories/implemen
 
 import {ISchedulesRepository} from "../../modules/schedules/repositories/ISchedulesRepository"
 
+import {ITransactionsRepository} from "../../modules/transactions/repositories/ITransactionsRepository"
+import { TransactionsRepository} from "../../modules/transactions/repositories/implementations/TransactionsRepository"
+
 container.registerSingleton<IProductsRepository>(
    "ProductsRepository", ProductsRepository
 )
@@ -29,4 +32,9 @@ container.registerSingleton<IAvailabilityRepository>(
 container.registerSingleton<ISchedulesRepository>(
    "SchedulesRepository", 
    delay(() => SchedulesRepository) 
+)
+
+container.registerSingleton<ITransactionsRepository>(
+   "TransactionsRepository", 
+   delay(() => TransactionsRepository) 
 )
